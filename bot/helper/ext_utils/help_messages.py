@@ -2,33 +2,7 @@ from bot.core.aeon_client import TgClient
 from bot.helper.telegram_helper.bot_commands import BotCommands
 
 nsfw_keywords = [
-    "porn",
-    "onlyfans",
-    "nsfw",
-    "Brazzers",
-    "adult",
-    "xnxx",
-    "xvideos",
-    "nsfwcherry",
-    "hardcore",
-    "Pornhub",
-    "xvideos2",
-    "youporn",
-    "pornrip",
-    "playboy",
-    "hentai",
-    "erotica",
-    "blowjob",
-    "redtube",
-    "stripchat",
-    "camgirl",
-    "nude",
-    "fetish",
-    "cuckold",
-    "orgy",
-    "horny",
-    "swingers",
-    "ullu",
+    "pPPPPPPPPPPPP",
 ]
 
 mirror = """<b>Send link along with command line or </b>
