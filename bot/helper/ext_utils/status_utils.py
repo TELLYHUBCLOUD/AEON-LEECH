@@ -12,23 +12,23 @@ SIZE_UNITS = ["B", "KB", "MB", "GB", "TB", "PB"]
 
 
 class MirrorStatus:
-    STATUS_UPLOAD = "Upload"
-    STATUS_DOWNLOAD = "Download"
-    STATUS_CLONE = "Clone"
-    STATUS_QUEUEDL = "QueueDl"
-    STATUS_QUEUEUP = "QueueUp"
-    STATUS_PAUSED = "Pause"
-    STATUS_ARCHIVE = "Archive"
-    STATUS_EXTRACT = "Extract"
-    STATUS_SPLIT = "Split"
-    STATUS_CHECK = "CheckUp"
-    STATUS_SEED = "Seed"
-    STATUS_SAMVID = "SamVid"
-    STATUS_CONVERT = "Convert"
-    STATUS_FFMPEG = "FFmpeg"
-    STATUS_METADATA = "Metadata"
-    STATUS_WATERMARK = "Watermark"
-    STATUS_ETHUMB = "Embed Thumb"
+    STATUS_UPLOAD = "🚀 Upload"
+    STATUS_DOWNLOAD = "📥 Download"
+    STATUS_CLONE = "📄 Clone"
+    STATUS_QUEUEDL = "⏳ QueueDl"
+    STATUS_QUEUEUP = "⏳ QueueUp"
+    STATUS_PAUSED = "⏸️ Pause"
+    STATUS_ARCHIVE = "📦 Archive"
+    STATUS_EXTRACT = "📂 Extract"
+    STATUS_SPLIT = "✂️ Split"
+    STATUS_CHECK = "✅ CheckUp"
+    STATUS_SEED = "🌱 Seed"
+    STATUS_SAMVID = "🎥 SamVid"
+    STATUS_CONVERT = "🔄 Convert"
+    STATUS_FFMPEG = "🎬 FFmpeg"
+    STATUS_METADATA = "📝 Metadata"
+    STATUS_WATERMARK = "💦 Watermark"
+    STATUS_ETHUMB = "🖼️ Embed Thumb"
 
 
 STATUSES = {
@@ -173,7 +173,7 @@ def get_progress_bar_string(pct):
     c_full = int((p + 5) // 10)
     p_str = "●" * c_full
     p_str += "○" * (10 - c_full)
-    return p_str
+    return f'<p><a href="https://t.me/TELLYMIRROR">{p_str}</a></p>'
 
 
 def source(self):
@@ -185,6 +185,7 @@ def source(self):
 
 
 async def get_readable_message(sid, is_user, page_no=1, status="All", page_step=1):
+    msg = '<blockquote><a href="https://t.me/TELLYMIRROR"><b>⚡ POWERED BY TELLY MIRROR 🤖</b></a></blockquote>'
     msg = ""
     button = None
 
@@ -224,7 +225,7 @@ async def get_readable_message(sid, is_user, page_no=1, status="All", page_step=
             and task.listener.progress
         ):
             progress = task.progress()
-            msg += f"\n{get_progress_bar_string(progress)} {progress}"
+            msg += f"\n[{get_progress_bar_string(progress)}] {progress}"
             if task.listener.subname:
                 subsize = f"/{get_readable_file_size(task.listener.subsize)}"
                 ac = len(task.listener.files_to_proceed)
