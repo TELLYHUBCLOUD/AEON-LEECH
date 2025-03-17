@@ -20,15 +20,10 @@ from .helper.telegram_helper.bot_commands import BotCommands
 
 # Commands and Descriptions
 COMMANDS = {
-    "MirrorCommand": "- Start mirroring",
     "LeechCommand": "- Start leeching",
-    "JdMirrorCommand": "- Mirror using Jdownloader",
     "JdLeechCommand": "- Leech using jdownloader",
-    "NzbMirrorCommand": "- Mirror nzb files",
     "NzbLeechCommand": "- Leech nzb files",
-    "YtdlCommand": "- Mirror yt-dlp supported link",
     "YtdlLeechCommand": "- Leech through yt-dlp supported link",
-    "CloneCommand": "- Copy file/folder to Drive",
     "MediaInfoCommand": "- Get mediainfo",
     "ForceStartCommand": "- Start task from queue",
     "CountCommand": "- Count file/folder on Google Drive",
