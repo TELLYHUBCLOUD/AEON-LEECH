@@ -1,4 +1,3 @@
-
 from html import escape
 from time import time
 from uuid import uuid4
