@@ -1,3 +1,4 @@
+
 from html import escape
 from time import time
 from uuid import uuid4
@@ -72,9 +73,9 @@ async def start(client, message):
 
 @new_task
 async def ping(_, message):
-    start_time = int(round(time() * 1000))
+    start_time = round(time() * 1000)
     reply = await send_message(message, "Starting Ping")
-    end_time = int(round(time() * 1000))
+    end_time = round(time() * 1000)
     await edit_message(reply, f"{end_time - start_time} ms")
 
 
