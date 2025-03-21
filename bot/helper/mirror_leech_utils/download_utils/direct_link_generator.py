@@ -777,7 +777,11 @@ def terabox(url, video_quality="HD Video", save_dir="HD_Video"):
             title = item["📂 Title"]
             download_link = item["🔽 Direct Download Link"]
             details["contents"].append(
-                {"url": download_link, "filename": title, "path": ospath.join(title, save_dir)}
+                {
+                    "url": download_link,
+                    "filename": title,
+                    "path": ospath.join(title, save_dir),
+                }
             )
             details["title"] = title
 
