@@ -1,0 +1,79 @@
+name: Deploy Multiple Bots to Heroku
+
+on:
+  workflow_dispatch:
+    inputs:
+      HEROKU_APP_NAMES:
+        description: "Comma-separated Heroku App names"
+        required: true
+      HEROKU_API_KEY:
+        description: "Heroku API key"
+        required: true
+      HEROKU_EMAIL:
+        description: "Heroku email address"
+        required: true
+      HEROKU_TEAM_NAME:
+        description: "Heroku Team Name (optional)"
+        required: false
+      BOT_TOKENS:
+        description: "Comma-separated Telegram bot tokens"
+        required: true
+      OWNER_ID:
+        description: "Owner's telegram ID"
+        required: true
+      DATABASE_URL:
+        description: "Database URL from MongoDB"
+        required: true
+      TELEGRAM_API:
+        description: "Telegram API ID"
+        required: true
+      TELEGRAM_HASH:
+        description: "Telegram HASH"
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Split App Names and Bot Tokens into Arrays
+        id: split
+        run: |
+          echo "HEROKU_APPS=(${{
+            inputs.HEROKU_APP_NAMES
+          }})" >> $GITHUB_ENV
+          echo "BOT_TOKENS=(${{
+            inputs.BOT_TOKENS
+          }})" >> $GITHUB_ENV
+
+      - name: Loop through Apps and Deploy
+        run: |
+          IFS=',' read -ra APP_ARRAY <<< "${{ inputs.HEROKU_APP_NAMES }}"
+          IFS=',' read -ra TOKEN_ARRAY <<< "${{ inputs.BOT_TOKENS }}"
+
+          for i in "${!APP_ARRAY[@]}"; do
+            APP_NAME="${APP_ARRAY[$i]}"
+            BOT_TOKEN="${TOKEN_ARRAY[$i]}"
+
+            echo "Deploying to $APP_NAME with bot token $BOT_TOKEN"
+
+            heroku git:remote -a "$APP_NAME"
+
+            heroku container:login
+            heroku container:push web -a "$APP_NAME"
+            heroku container:release web -a "$APP_NAME"
+
+            heroku config:set \
+              HD_OWNER_ID=${{ inputs.OWNER_ID }} \
+              HD_TELEGRAM_API=${{ inputs.TELEGRAM_API }} \
+              HD_TELEGRAM_HASH=${{ inputs.TELEGRAM_HASH }} \
+              HD_DATABASE_URL=${{ inputs.DATABASE_URL }} \
+              HD_BOT_TOKEN=$BOT_TOKEN \
+              -a "$APP_NAME"
+
+          done
+        env:
+          HEROKU_API_KEY: ${{ inputs.HEROKU_API_KEY }}
+          HEROKU_EMAIL: ${{ inputs.HEROKU_EMAIL }}
